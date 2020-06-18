@@ -22,3 +22,4 @@ takeT
 """
 from .iterator import *
 from .duplicate_last import DuplicateLast
+from .subset import Subset
