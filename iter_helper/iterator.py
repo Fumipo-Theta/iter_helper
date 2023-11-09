@@ -1,11 +1,11 @@
-from typing import List, Tuple, Iterable, Iterator, TypeVar, Callable, Union, MappingView
+from typing import List, Tuple, Iterable, Iterator, TypeVar, Callable
 from functools import reduce
 
 T = TypeVar('T')
 S = TypeVar('S')
 
 
-def mapping(mapFunc: Callable[[T], S])->Callable[[Iterable[T]], Iterable[S]]:
+def mapping(mapFunc: Callable[[T], S]) -> Callable[[Iterable[T]], Iterable[S]]:
     return lambda arr: map(
         mapFunc,
         arr
@@ -19,7 +19,7 @@ def filtering(pred: Callable[[T], bool]) -> Callable[[Iterable[T]], Iterable[T]]
     )
 
 
-def reducing(reduceFunc: Callable[[T, S], T])->Callable[[T], Callable[[Iterable[S]], T]]:
+def reducing(reduceFunc: Callable[[T, S], T]) -> Callable[[T], Callable[[Iterable[S]], T]]:
     """
     reducing: (T, S -> T) -> T -> ([S] -> T)
     reducing: (acc, e -> acc) -> a -> ([a] -> acc)
@@ -36,7 +36,7 @@ def reducing(reduceFunc: Callable[[T, S], T])->Callable[[T], Callable[[Iterable[
     )
 
 
-def is_all(pred: Callable[[T], bool])->Callable[[Iterable[T]], bool]:
+def is_all(pred: Callable[[T], bool]) -> Callable[[Iterable[T]], bool]:
     """
     pred: a -> bool
     arr: list, tuple
@@ -47,8 +47,8 @@ def is_all(pred: Callable[[T], bool])->Callable[[Iterable[T]], bool]:
     return lambda arr: all(map(pred, arr))
 
 
-assert(is_all(lambda x: x > 0)([1, 2, 3, 4, 5]) is True)
-assert(is_all(lambda x: x > 0)((1, 2, 3, 4, 0)) is not True)
+assert (is_all(lambda x: x > 0)([1, 2, 3, 4, 5]) is True)
+assert (is_all(lambda x: x > 0)((1, 2, 3, 4, 0)) is not True)
 
 
 def is_any(pred: Callable[[T], bool]):
@@ -62,8 +62,8 @@ def is_any(pred: Callable[[T], bool]):
     return lambda arr: any(map(pred, arr))
 
 
-assert(is_any(lambda x: x % 2 is 0)([1, 3, 5, 7, 8]) is True)
-assert(is_any(lambda x: x % 2 is 0)((1, 3, 5, 7, 9)) is not True)
+assert (is_any(lambda x: x % 2 == 0)([1, 3, 5, 7, 8]) is True)
+assert (is_any(lambda x: x % 2 == 0)((1, 3, 5, 7, 9)) is not True)
 
 
 def all_equal(arr):
@@ -76,8 +76,8 @@ def all_equal(arr):
     return is_all(lambda e: e == first)(rest)
 
 
-assert(all_equal([1, 1, 1]) is True)
-assert(all_equal((1, 1, 2)) is not True)
+assert (all_equal([1, 1, 1]) is True)
+assert (all_equal((1, 1, 2)) is not True)
 
 
 def interval_generator(array: List[T]) -> Iterator[Tuple[T, T]]:
@@ -93,8 +93,8 @@ def interval_generator(array: List[T]) -> Iterator[Tuple[T, T]]:
     return zip(lower, upper)
 
 
-assert(list(interval_generator([0, 1, 2, 3, 4]))
-       == [(0, 1), (1, 2), (2, 3), (3, 4)])
+assert (list(interval_generator([0, 1, 2, 3, 4]))
+        == [(0, 1), (1, 2), (2, 3), (3, 4)])
 
 
 def rich_mapping(map_func):
